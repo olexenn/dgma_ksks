@@ -38,7 +38,12 @@ int main()
       break;
     sendto(sockfd, &buf[0], strlen(&buf[0]) - 1, 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
     printf("Команда была отправлена.\n");
+
+    memset(buf, 0, MAX_LINE);
+    recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr*)NULL, NULL);
+    puts(buf);
   }
+
 
   close(sockfd);
   return 0;
