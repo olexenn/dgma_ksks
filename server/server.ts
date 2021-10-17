@@ -23,10 +23,22 @@ server.on('error', (err: Error) => {
 server.on('message', (msg: Buffer, rinfo: dgram.RemoteInfo) => {
   console.log(`from ${rinfo.address}:${rinfo.port} server got: ${msg} `)
   const parsedCommand: ParserOutput = parser.parse(msg.toString());
-  if (parsedCommand.status === -1) console.log("Format Error");
-  else if (parsedCommand.status === -2) console.log("Bad Arguments");
-  else if (parsedCommand.status === -3) console.log("Unknown Command");
-  else console.log(parsedCommand)
+  if (parsedCommand.status === -1) {
+    console.log("Format Error");
+    server.send("-1: command format error", rinfo.port, rinfo.address);
+  } 
+  else if (parsedCommand.status === -2) {
+    console.log("Bad Arguments");
+    server.send("-2: bad arguments", rinfo.port, rinfo.address);
+  } 
+  else if (parsedCommand.status === -3) {
+    server.send("-3: command not found", rinfo.port, rinfo.address);
+    console.log("Unknown Command");
+  } 
+  else {
+    server.send("0: ok", rinfo.port, rinfo.address);
+    console.log(parsedCommand)
+  } 
 })
 
 server.bind(PORT, HOST);
