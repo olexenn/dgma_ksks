@@ -45,8 +45,8 @@ Commands `get_width` and `get_height` must return integer number [0 : 65535].
 ---
 
 If there is a typo in command or unknown command server will return `-3` status code(which means `commad not found`)
-If number of args differs from specification then server will return `-1` status code(which means `bad arguments`)
-If type of argument is wrong server will return `-2` status code(which means `comamnd format error`)
+If number of args differs from specification then server will return `-2` status code(which means `bad arguments`)
+If type of argument is wrong server will return `-1` status code(which means `comamnd format error`)
 If everything is ok then server will return `0` status code(which means `ok`)
 
 ---
