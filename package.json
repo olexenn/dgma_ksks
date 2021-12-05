@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node server/server.ts",
-    "parser": "ts-node Parser.ts",
-    "test": "./node_modules/.bin/_mocha 'tests/**/*.test.ts'"
+    "build": "rm -rf server/dist && tsc",
+    "watch": "tsc -w",
+    "start": "npm run build && electron ./server/dist/main.js",
+    "dev": "nodemon --watch --exec electron ./server/dist/main.js",
+    "test": "./node_modules/.bin/_mocha 'tests/**/*.test.ts'",
+    "clean": "rm -rf server/dist"
   },
   "keywords": [],
   "author": "",
@@ -16,9 +19,14 @@
     "@types/chai": "^4.2.22",
     "@types/node": "^16.10.5",
     "chai": "^4.3.4",
+    "electron": "^15.2.0",
     "mocha": "^9.1.3",
+    "nodemon": "^2.0.13",
+    "ts-loader": "^9.2.6",
     "ts-node": "^10.3.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
     "eslint": "^8.0.1",

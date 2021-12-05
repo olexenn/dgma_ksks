@@ -1,8 +1,8 @@
-import Parser from ".././server/parser/Parser";
+import Parser from ".././server/src/parser/Parser";
 import { suite, test } from '@testdeck/mocha';
 import * as _chai from 'chai';
 import { expect } from "chai";
-import {Status} from "../server/parser/Status";
+import {Status} from "../server/src/parser/Status";
 
 _chai.should();
 _chai.expect;
