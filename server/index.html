@@ -2,17 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'"> <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'"
+    />
     <title>Ksks</title>
   </head>
   <body>
-      <h1>Commands</h1>
-      <textarea name="textarea" style="width: 700px; height: 180px" id="commands" disabled="true"></textarea>
-      <h1>Last Command Status:<span id="commandStatus"><span><h1>
+    <h1>Commands</h1>
+    <textarea
+      name="textarea"
+      style="width: 700px; height: 180px"
+      id="commands"
+      disabled="true"
+    ></textarea>
+    <h1>Last Command Status:<span id="commandStatus"></span></h1>
 
-	  <canvas id="myCanvas" width="700" height="450"></canvas>
-
+    <canvas id="myCanvas" width="700" height="450"></canvas>
   </body>
   <!-- <script src="./dist/renderer.js"></script> -->
-  <script>require("./dist/renderer.js")</script>
+  <script>
+    require("./dist/renderer.js");
+  </script>
 </html>
