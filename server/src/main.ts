@@ -34,7 +34,7 @@ function createWindow() {
     })
   );
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   // return mainWindow;
 
   server.on("listening", () => {

@@ -133,7 +133,14 @@ ipcRenderer.on("fill_rounded_rectangle", (event, arg) => {
 ipcRenderer.on("draw_text", (event, arg) => {
   ctx.font = arg[3] + "px serif";
   ctx.fillStyle = "#" + arg[2];
-  ctx.fillText(arg[5], arg[0], arg[1]);
+  let userText = "";
+  if (arg.length > 6) {
+    for (let i = 0; i <= arg.length - 6; i++) {
+      userText += arg[i + 5] + " ";
+    }
+  } else userText = arg[5];
+  console.log(userText);
+  ctx.fillText(userText, arg[0], arg[1]);
 });
 
 ipcRenderer.on("draw_image", (event, arg) => {

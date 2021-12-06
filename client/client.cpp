@@ -1,47 +1,44 @@
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-#define PORT 33333
-#define MAX_LINE 1024
+#include "Display.h"
+#include "udp.h"
 
 int main() {
-  int sockfd;
-  char buf[MAX_LINE];
-  struct sockaddr_in servaddr;
+  int counter = 0;
+  Display display = Display(700, 450);
 
-  // Socket init
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-    perror("Ошибка при создании Сокета");
-    exit(EXIT_FAILURE);
-  }
-
-  memset(&servaddr, 0, sizeof(servaddr));
-
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_port = htons(PORT);
-  servaddr.sin_addr.s_addr = INADDR_ANY;
-
-  // Entering commands untill "stop"
   while (1) {
-    printf("Введите Команду для сервера: ");
-    fgets(&buf[0], sizeof(buf) - 1, stdin);
-    if (!strcmp(&buf[0], "stop\n"))
-      break;
-    sendto(sockfd, &buf[0], strlen(&buf[0]) - 1, 0,
-           (const struct sockaddr *)&servaddr, sizeof(servaddr));
-    printf("Команда была отправлена.\n");
+    // if (counter == 0) {
+    //   display.fillScreen(RGB(r, g, b))
+    //   counter++;
+    // }
+    if (counter == 0) {
+      display.drawText(125, 100, RGB(0, 0, 0), 50, 14, "Digital Clock");
+      counter++;
+    } else if (counter == 1) {
+      time_t curTime;
+      struct tm *localTime;
 
-    memset(buf, 0, MAX_LINE);
-    recvfrom(sockfd, buf, sizeof(buf), 0, (struct sockaddr *)NULL, NULL);
-    puts(buf);
+      time(&curTime);
+      localTime = localtime(&curTime);
+
+      int h = localTime->tm_hour;
+      int m = localTime->tm_min;
+      int c = localTime->tm_sec;
+      int Y = localTime->tm_year;
+      int M = localTime->tm_mon;
+      int D = localTime->tm_mday;
+
+      display.fillRoundedRect(100, 200, 500, 200, 20, RGB(255, 224, 46));
+
+      std::string time =
+          std::to_string(h) + ":" + std::to_string(m) + ":" + std::to_string(c);
+      display.drawText(170, 310, RGB(0, 0, 0), 100, 14, time);
+      std::string date =
+          std::to_string(D) + "/" + std::to_string(M) + ":" + std::to_string(Y);
+      display.drawText(250, 370, RGB(0, 0, 0), 50, 14, time);
+
+      sleep(1);
+    }
   }
 
-  close(sockfd);
   return 0;
 }
